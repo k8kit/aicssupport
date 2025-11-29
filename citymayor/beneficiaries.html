@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficiaries - City Mayor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/admin-styles.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="text-white fw-bold">
+                <i class="bi bi-award me-2"></i>Mayor Panel
+            </h4>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="applicants.html" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span>Final Approval</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="beneficiaries.html" class="nav-link active">
+                    <i class="bi bi-heart"></i>
+                    <span>Approved Beneficiaries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="manage_account.html" class="nav-link">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Manage Your Account</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-link text-danger" id="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-3" id="sidebar-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="mb-0">Approved Beneficiaries</h5>
+                <div class="ms-auto">
+                    <span class="text-muted me-3">Welcome, <strong id="user-name">City Mayor</strong></span>
+                    <span class="badge bg-success" id="current-time"></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="container-fluid p-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Filter by Program</label>
+                            <select class="form-select" id="program-filter">
+                                <option value="">All Programs</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Date Range</label>
+                            <input type="date" class="form-control" id="date-filter">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Search Applicant</label>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    id="search-input" 
+                                    class="form-control" 
+                                    placeholder="Search Reference No. or Name">
+                                <button class="btn btn-outline-primary" id="search-btn">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Beneficiaries Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-heart me-2"></i>Applications I Have Approved
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="beneficiaries-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date Approved</th>
+                                    <th>Reference Number</th>
+                                    <th>Beneficiary Name</th>
+                                    <th>Type of Assistance</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="beneficiaries-tbody">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pagination-controls" class="d-flex justify-content-between align-items-center mt-3 px-2">
+                        <button id="prev-page" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Previous
+                        </button>
+
+                        <div id="page-numbers" class="fw-bold text-center flex-grow-1"></div>
+
+                        <button id="next-page" class="btn btn-sm btn-outline-secondary">
+                            Next <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="applicationModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-file-earmark-text me-2"></i>Application Review
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="application-details">
+                    <!-- Application details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="documentPreviewModal" tabindex="-1" aria-labelledby="documentPreviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="documentPreviewLabel">Document Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="document-preview-content">
+                    <p class="text-muted">Loading document...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/citymayor-beneficiaries.js"></script>
+</body>
+</html>

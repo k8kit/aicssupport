@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICS - Assistance to Individuals in Crisis Situations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="uploads/logo.png" alt="AICS Logo" 
+                    class="me-2" style="height: 50px; width: auto;">
+                <span class="fw-bold text-white" style="font-size: 19px;">Centralized AICS Support</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="programs.html">Programs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="apply.html">Apply Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="track.html">Track Application</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Video -->
+    <div class="hero-section position-relative text-white overflow-hidden">
+        <!-- Background Video -->
+        <video autoplay muted loop playsinline 
+            class="position-absolute top-0 start-0 w-100 h-100" 
+            style="object-fit: cover; z-index: 0;">
+            <source src="uploads/bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Dark overlay for readability -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" 
+            style="background: rgba(0, 0, 0, 0.55); z-index: 1;"></div>
+
+        <!-- Foreground content -->
+        <div class="container position-relative" style="z-index: 2;">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold text-white mb-4">
+                        Assistance to Individuals in Crisis Situations
+                    </h1>
+                    <p class="lead text-white mb-4">
+                        AICS provides immediate and temporary assistance to individuals and families in crisis situations. 
+                        Our programs are designed to help community members overcome financial difficulties and access 
+                        essential services during challenging times.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="apply.html" class="btn btn-success btn-lg">
+                            <i class="bi bi-file-earmark-plus me-2"></i>Apply Now
+                        </a>
+                        <a href="programs.html" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-list-ul me-2"></i>View Programs
+                        </a>
+                        <a href="track.html" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-search me-2"></i>Track Application
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Programs Section -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold text-primary">Available Assistance Programs</h2>
+                <p class="lead text-muted">Choose from our comprehensive support services</p>
+            </div>
+        </div>
+        <div id="programs-grid" class="row g-4">
+            <!-- Programs will be loaded dynamically -->
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold text-primary">Latest Updates & Announcements</h2>
+                <p class="lead text-muted">Stay informed with our latest news and updates</p>
+            </div>
+        </div>
+        <div id="content-updates-container">
+            <!-- Loading spinner -->
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="text-muted mt-3">Loading updates...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Styles for Content Updates -->
+    <style>
+        .update-card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+        
+        .update-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .update-card-img {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .update-card:hover .update-card-img {
+            transform: scale(1.05);
+        }
+        
+        .update-card-body {
+            position: relative;
+        }
+        
+        .update-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .update-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.6;
+        }
+        
+        .no-updates-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 60px 20px;
+        }
+    </style>
+
+    <!-- JavaScript to load and display content updates -->
+    <script>
+    class ContentUpdatesDisplay {
+        constructor() {
+            this.init();
+        }
+
+        async init() {
+            await this.loadContentUpdates();
+        }
+
+        async loadContentUpdates() {
+            try {
+                const response = await fetch('api/content_updates_public.php');
+                const result = await response.json();
+
+                const container = document.getElementById('content-updates-container');
+
+                if (result.success && result.data && result.data.length > 0) {
+                    this.renderUpdates(result.data, container);
+                } else {
+                    this.renderNoUpdates(container);
+                }
+            } catch (error) {
+                console.error('Error loading content updates:', error);
+                this.renderError(document.getElementById('content-updates-container'));
+            }
+        }
+
+        renderUpdates(updates, container) {
+            const html = `
+                <div class="row g-4">
+                    ${updates.map((update, index) => `
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card update-card h-100 shadow-sm">
+                                <div class="position-relative overflow-hidden">
+                                    <img src="${update.image_path}" 
+                                        class="card-img-top update-card-img" 
+                                        alt="${this.escapeHtml(update.title)}"
+                                        onerror="this.src='uploads/placeholder.jpg'">
+                                </div>
+                                <div class="card-body update-card-body pt-4">
+                                    <span class="update-badge">
+                                        <i class="bi bi-megaphone me-1"></i>NEW
+                                    </span>
+                                    <h5 class="card-title fw-bold text-primary mb-3">
+                                        ${this.escapeHtml(update.title)}
+                                    </h5>
+                                    <p class="card-text text-muted update-description">
+                                        ${this.escapeHtml(update.description)}
+                                    </p>
+                                    <div class="mt-3 pt-3 border-top">
+                                        <small class="text-muted">
+                                            <i class="bi bi-calendar-event me-2"></i>
+                                            ${this.formatDate(update.created_at)}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        renderNoUpdates(container) {
+            container.innerHTML = `
+                <div class="no-updates-container text-center">
+                    <i class="bi bi-info-circle text-muted" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted mt-3 mb-2">No Updates Available</h4>
+                    <p class="text-muted mb-0">Check back soon for the latest news and announcements!</p>
+                </div>
+            `;
+        }
+
+        renderError(container) {
+            container.innerHTML = `
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Unable to load updates at this time. Please try again later.
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-PH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        new ContentUpdatesDisplay();
+    });
+    </script>
+
+
+    <!-- Features Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h3 class="display-6 fw-bold text-primary">How It Works</h3>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="feature-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-1-circle-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Choose Service</h5>
+                        <p class="text-muted">Select the assistance program that matches your needs</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="feature-icon bg-success text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-2-circle-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Fill Details</h5>
+                        <p class="text-muted">Complete your personal and beneficiary information</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="feature-icon bg-info text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-3-circle-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Upload Documents</h5>
+                        <p class="text-muted">Submit required documents based on your selected program</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="feature-icon bg-warning text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-4-circle-fill"></i>
+                        </div>
+                        <h5 class="fw-bold">Track Status</h5>
+                        <p class="text-muted">Monitor your application progress with your reference number</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this section in index.html BEFORE the footer -->
+
+    <!-- FAQs Section -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="display-5 fw-bold text-primary">Frequently Asked Questions</h2>
+                    <p class="lead text-muted">Find answers to common questions about our services</p>
+                </div>
+            </div>
+            <div id="faqs-container">
+                <!-- Loading spinner -->
+                <div class="row">
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-muted mt-3">Loading FAQs...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Styles for FAQs -->
+    <style>
+        .faq-category-section {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-category-title {
+            color: #0d6efd;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #0d6efd;
+            display: inline-block;
+        }
+        
+        .faq-accordion .accordion-item {
+            border: none;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-accordion .accordion-item:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        .faq-accordion .accordion-button {
+            background-color: #fff;
+            color: #212529;
+            font-weight: 600;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.05rem;
+            border: none;
+        }
+        
+        .faq-accordion .accordion-button:not(.collapsed) {
+            background-color: #0d6efd;
+            color: white;
+            box-shadow: none;
+        }
+        
+        .faq-accordion .accordion-button:focus {
+            box-shadow: none;
+            border: none;
+        }
+        
+        .faq-accordion .accordion-button::after {
+            background-size: 1.25rem;
+        }
+        
+        .faq-accordion .accordion-button:not(.collapsed)::after {
+            filter: brightness(0) invert(1);
+        }
+        
+        .faq-accordion .accordion-body {
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            color: #495057;
+            line-height: 1.8;
+        }
+        
+        .no-faqs-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 60px 20px;
+        }
+
+        .faq-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+    </style>
+
+    <!-- JavaScript to load and display FAQs -->
+    <script>
+    class FAQDisplay {
+        constructor() {
+            this.init();
+        }
+
+        async init() {
+            await this.loadFAQs();
+        }
+
+        async loadFAQs() {
+            try {
+                const response = await fetch('api/faqs_public.php');
+                const result = await response.json();
+
+                const container = document.getElementById('faqs-container');
+
+                if (result.success && result.data && result.data.grouped) {
+                    const grouped = result.data.grouped;
+                    if (Object.keys(grouped).length > 0) {
+                        this.renderFAQs(grouped, container);
+                    } else {
+                        this.renderNoFAQs(container);
+                    }
+                } else {
+                    this.renderNoFAQs(container);
+                }
+            } catch (error) {
+                console.error('Error loading FAQs:', error);
+                this.renderError(document.getElementById('faqs-container'));
+            }
+        }
+
+        renderFAQs(groupedFaqs, container) {
+            let html = '<div class="row">';
+            
+            Object.keys(groupedFaqs).forEach((category, categoryIndex) => {
+                const faqs = groupedFaqs[category];
+                const accordionId = `accordion-${category.toLowerCase().replace(/\s+/g, '-')}`;
+                
+                html += `
+                    <div class="col-lg-6">
+                        <div class="faq-category-section">
+                            <h4 class="faq-category-title">
+                                <span class="faq-icon">${categoryIndex + 1}</span>
+                                ${this.escapeHtml(category)}
+                            </h4>
+                            <div class="accordion faq-accordion" id="${accordionId}">
+                                ${faqs.map((faq, index) => `
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading-${faq.id}">
+                                            <button class="accordion-button ${index !== 0 ? 'collapsed' : ''}" 
+                                                    type="button" 
+                                                    data-bs-toggle="collapse" 
+                                                    data-bs-target="#collapse-${faq.id}" 
+                                                    aria-expanded="${index === 0 ? 'true' : 'false'}" 
+                                                    aria-controls="collapse-${faq.id}">
+                                                <i class="bi bi-question-circle me-2"></i>
+                                                ${this.escapeHtml(faq.question)}
+                                            </button>
+                                        </h2>
+                                        <div id="collapse-${faq.id}" 
+                                            class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
+                                            aria-labelledby="heading-${faq.id}" 
+                                            data-bs-parent="#${accordionId}">
+                                            <div class="accordion-body">
+                                                <i class="bi bi-chat-right-text text-primary me-2"></i>
+                                                ${this.escapeHtml(faq.answer)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add row break after every 2 categories
+                if ((categoryIndex + 1) % 2 === 0 && categoryIndex < Object.keys(groupedFaqs).length - 1) {
+                    html += '</div><div class="row">';
+                }
+            });
+            
+            html += '</div>';
+            
+            // Add contact section
+            html += `
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="card-body text-center text-white py-4">
+                                <h5 class="fw-bold mb-3">
+                                    <i class="bi bi-question-circle-fill me-2"></i>
+                                    Still have questions?
+                                </h5>
+                                <p class="mb-3">Can't find the answer you're looking for? Please contact our support team using the Contact Information provided below.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        renderNoFAQs(container) {
+            container.innerHTML = `
+                <div class="no-faqs-container text-center">
+                    <i class="bi bi-info-circle text-muted" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted mt-3 mb-2">No FAQs Available</h4>
+                    <p class="text-muted mb-0">Check back soon for frequently asked questions!</p>
+                </div>
+            `;
+        }
+
+        renderError(container) {
+            container.innerHTML = `
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Unable to load FAQs at this time. Please try again later.
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        new FAQDisplay();
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold text-uppercase mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="programs.html" class="text-light text-decoration-none">Programs</a></li>
+                        <li><a href="apply.html" class="text-light text-decoration-none">Apply Now</a></li>
+                        <li><a href="track.html" class="text-light text-decoration-none">Track Application</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-md-5 mb-4">
+                    <h5 class="fw-bold text-uppercase mb-3">Contact Information</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="bi bi-telephone-fill me-2"></i><strong>Hotline:</strong> (043) 784 8022</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> cio@cityofstotomas.gov.ph</li>
+                        <li><i class="bi bi-geo-alt-fill me-2"></i><strong>Address:</strong><br>
+                            CSWDO Building, Poblacion 1, City of Sto. Tomas<br>
+                            Aksyon Bilis Building, Poblacion 1, City of Sto. Tomas
+                        </li>
+                        <li><i class="bi bi-clock-fill me-2"></i><strong>Office Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</li>
+                    </ul>
+                </div>
+
+                <!-- Logo / About / Social Links -->
+                <div class="col-md-3 text-center mb-4">
+                    <img src="uploads/logo.png" alt="AICS Logo" class="img-fluid mb-3" style="height: 60px;">
+                    <p class="small text-light mb-3" style="opacity: 0.9;">
+                        Providing timely assistance to individuals and families in crisis within the City of Sto. Tomas.
+                    </p>
+
+                    <!-- Social Media Icons -->
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://www.facebook.com/STOTOMASLGU" target="_blank" class="text-light fs-5" title="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/cityofstotomastourism?igsh=dmY0Z29wdzZ3d2cx&fbclid=IwY2xjawNlaf5leHRuA2FlbQIxMABicmlkETFQTXFJT1o4WHpubmhPaWQ5AR7Q2xQD5tZNoCKslwpuxQMUq5TCTIJaxFP1fqMCAxiGDl2SN6b3U0L03nfTkw_aem_uKOei3moZUvuMQR2yWC4nQ" target="_blank" class="text-light fs-5" title="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://cityofstotomas.gov.ph/?fbclid=IwY2xjawNlai5leHRuA2FlbQIxMABicmlkETFQTXFJT1o4WHpubmhPaWQ5AR7Q2xQD5tZNoCKslwpuxQMUq5TCTIJaxFP1fqMCAxiGDl2SN6b3U0L03nfTkw_aem_uKOei3moZUvuMQR2yWC4nQ" target="_blank" class="text-light fs-5" title="Official Website">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@CityofStoTomasBatangas" target="_blank" class="text-light fs-5" title="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="text-light fs-5" title="Get Directions" data-bs-toggle="modal" data-bs-target="#mapModal">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mapModalLabel">Get Directions</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                            <iframe 
+                                src="https://www.google.com/maps?q=14.110507360158971,121.14214315933367&output=embed" 
+                                width="100%" 
+                                height="450" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=14.110507360158971,121.14214315933367" 
+                            target="_blank" 
+                            class="btn btn-primary">
+                                Open in Google Maps
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="text-center small">
+                <p class="mb-0">&copy; 2025 Centralized AICS Support. All rights reserved. | Empowering communities through social support.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

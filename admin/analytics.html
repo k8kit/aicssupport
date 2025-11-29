@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - AICS Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/admin-styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="text-white fw-bold">
+                <i class="bi bi-shield-check me-2"></i>Aksyon Bilis Admin Panel
+            </h4>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="dashboard_aksyonbilis.html" class="nav-link">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="applicants.html" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span>Applicants</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="interviewees.html" class="nav-link">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Interviewees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="beneficiaries.html" class="nav-link">
+                    <i class="bi bi-heart"></i>
+                    <span>Beneficiaries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link active">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item"><a href="manage_content.html" class="nav-link"><i class="bi bi-megaphone"></i><span>Content Updates</span></a></li>
+            <li class="nav-item">
+                <a href="manage_account.html" class="nav-link">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Manage Your Account</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-link text-danger" id="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-3" id="sidebar-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="mb-0">Analytics & Reports</h5>
+                <div class="ms-auto">
+                    <span class="text-muted me-3">Welcome, <strong id="user-name">Admin</strong></span>
+                    <span class="badge bg-success" id="current-time"></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="container-fluid p-4">
+            <!-- Enhanced Filtering Section -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-funnel me-2"></i>Filter Options
+                    </h5>
+                    <div class="row g-3">
+                        <!-- Quick Filters -->
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Quick Filters</label>
+                            <div class="btn-group w-100" role="group">
+                                <button type="button" class="btn btn-outline-primary quick-filter" data-filter="today">
+                                    <i class="bi bi-calendar-day me-1"></i>Today
+                                </button>
+                                <button type="button" class="btn btn-outline-primary quick-filter" data-filter="week">
+                                    <i class="bi bi-calendar-week me-1"></i>This Week
+                                </button>
+                                <button type="button" class="btn btn-outline-primary quick-filter" data-filter="month">
+                                    <i class="bi bi-calendar-month me-1"></i>This Month
+                                </button>
+                                <button type="button" class="btn btn-outline-primary quick-filter active" data-filter="all">
+                                    <i class="bi bi-calendar-check me-1"></i>All
+                                </button>
+                                <button type="button" class="btn btn-outline-primary quick-filter" data-filter="custom">
+                                    <i class="bi bi-calendar-range me-1"></i>Custom Range
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Date Range -->
+                        <div class="col-md-3" id="custom-date-range" style="display: none;">
+                            <label class="form-label">From Date</label>
+                            <input type="date" class="form-control" id="from-date">
+                        </div>
+                        <div class="col-md-3" id="custom-date-range-to" style="display: none;">
+                            <label class="form-label">To Date</label>
+                            <input type="date" class="form-control" id="to-date">
+                        </div>
+                        
+                        <!-- Program Filter -->
+                        <div class="col-md-3">
+                            <label class="form-label">Program Type</label>
+                            <select class="form-select" id="program-filter">
+                                <option value="">All Programs</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Status Filter -->
+                        <div class="col-md-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="status-filter">
+                                <option value="">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Released">Released</option>
+                                <option value="Rejected">Rejected</option>
+                                
+                                
+                            </select>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="col-md-3">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <button class="btn btn-primary w-100" id="apply-filters">
+                                <i class="bi bi-check-circle me-2"></i>Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descriptive Analytics -->
+            <div class="row g-4 mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-primary mb-0">
+                            <i class="bi bi-bar-chart me-2"></i>Descriptive Analytics
+                        </h4>
+                        <button class="btn btn-success" id="export-descriptive">
+                            <i class="bi bi-download me-2"></i>Export Reports
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="col-md-3">
+                    <div class="stats-card bg-primary">
+                        <div class="stats-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="total-applications">0</h3>
+                            <p>Total Applications</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card bg-success">
+                        <div class="stats-icon">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="total-beneficiaries">0</h3>
+                            <p>Total Beneficiaries</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card bg-info">
+                        <div class="stats-icon">
+                            <i class="bi bi-percent"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="approval-rate">0%</h3>
+                            <p>Approval Rate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card bg-warning">
+                        <div class="stats-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="avg-processing-time">0</h3>
+                            <p>Avg Processing Days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications by Status Chart -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-pie-chart me-2"></i>Applications by Status
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <canvas id="statusChart" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Application Trend Chart -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-graph-up me-2"></i>Application Trend
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <canvas id="trendsChart" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Performance and Most Requested Programs -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-speedometer2 me-2"></i>Admin Performance Metrics
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <canvas id="performanceChart" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-bar-chart-line me-2"></i>Most Requested Programs
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <canvas id="programsChart" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predictive Analytics Section with AI -->
+            <div class="row g-4 mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-primary mb-0">
+                            <i class="bi bi-robot me-2"></i>Predictive Analytics (AI-Powered)
+                        </h4>
+                        <button class="btn btn-success" id="export-predictive">
+                            <i class="bi bi-download me-2"></i>Export Reports
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Replace the forecast and seasonal chart sections with these -->
+
+                <!-- Resource Consumption Forecast -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-graph-up-arrow me-2"></i>Resource Consumption Forecast
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <!-- ✅ Fixed: Add wrapper with fixed height -->
+                            <div style="position: relative; height: 350px; width: 100%;">
+                                <canvas id="forecastChart"></canvas>
+                            </div>
+                            <div class="mt-3">
+                                <div class="alert alert-info mb-0">
+                                    <i class="bi bi-lightbulb me-2"></i>
+                                    <strong>AI Prediction:</strong> <span id="forecast-insight">Analyzing historical data...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seasonal Application Spike Predictor -->
+                <div class="col-md-6">
+                    <div class="card shadow-sm chart-card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-calendar-event me-2"></i>Seasonal Spike Predictor
+                            </h5>
+
+                        </div>
+                        <div class="card-body">
+                            <!-- ✅ Fixed: Add wrapper with fixed height -->
+                            <div style="position: relative; height: 350px; width: 100%;">
+                                <canvas id="seasonalChart"></canvas>
+                            </div>
+                            <div class="mt-3">
+                                <div class="alert alert-warning mb-0">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <strong>AI Alert:</strong> <span id="spike-insight">Detecting seasonal patterns...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid p-4">
+    <!-- Beneficiaries Table -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-heart me-2"></i>List of Approved Beneficiaries
+                    </h5>
+                    <div class="d-flex gap-2">
+                        <div class="input-group" style="width: 300px;">
+                            <input 
+                                type="text" 
+                                id="search-input" 
+                                class="form-control" 
+                                placeholder="Search Reference No. or Name">
+                            <button class="btn btn-outline-primary" id="search-btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <button class="btn btn-success" id="export-beneficiaries-csv">
+                            <i class="bi bi-file-earmark-spreadsheet me-1"></i>Export CSV
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="beneficiaries-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date Approved</th>
+                                    <th>Reference Number</th>
+                                    <th>Beneficiary Name</th>
+                                    <th>Type of Assistance</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="beneficiaries-tbody">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pagination-controls" class="d-flex justify-content-between align-items-center mt-3 px-2">
+                        <button id="prev-page" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Previous
+                        </button>
+
+                        <div id="page-numbers" class="fw-bold text-center flex-grow-1"></div>
+
+                        <button id="next-page" class="btn btn-sm btn-outline-secondary">
+                            Next <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="applicationModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-file-earmark-text me-2"></i>Application Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="application-details">
+                    <!-- Application details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/admin-analytics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>

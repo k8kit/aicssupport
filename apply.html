@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply - AICS Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="uploads/logo.png" alt="AICS Logo" 
+                    class="me-2" style="height: 50px; width: auto;">
+                <span class="fw-bold text-white" style="font-size: 19px;">Centralized AICS Support</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="programs.html">Programs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="apply.html">Apply Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="track.html">Track Application</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="bg-primary text-white py-4">
+        <div class="container">
+            <h1 class="h3 mb-0">Apply for AICS Assistance</h1>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="progress-wrapper">
+                    <div class="progress mb-4" style="height: 8px;">
+                        <div class="progress-bar bg-success" id="progress-bar" role="progressbar" style="width: 25%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="step-indicator active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <small>Choose Service</small>
+                        </div>
+                        <div class="step-indicator" data-step="2">
+                            <div class="step-circle">2</div>
+                            <small>Personal Details</small>
+                        </div>
+                        <div class="step-indicator" data-step="3">
+                            <div class="step-circle">3</div>
+                            <small>Upload Documents</small>
+                        </div>
+                        <div class="step-indicator" data-step="4">
+                            <div class="step-circle">4</div>
+                            <small>Review & Submit</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Form -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form id="application-form" class="needs-validation" novalidate>
+                    <!-- Step 1: Choose Service -->
+                    <div class="step-content active" id="step-1">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="bi bi-clipboard-check me-2"></i>Step 1: Choose a Service/Program
+                                </h4>
+                                <div id="service-options" class="row g-3">
+                                    <!-- Services will be loaded dynamically -->
+                                </div>
+                                <div class="text-end mt-4">
+                                    <button type="button" class="btn btn-primary" id="next-step-1" disabled>
+                                        Next <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal Details -->
+                    <div class="step-content" id="step-2">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="bi bi-person-fill me-2"></i>Step 2: Personal Details
+                                </h4>
+                                
+                                <!-- Client Information -->
+                                <div class="section-header mb-3">
+                                    <h5 class="text-success">I. Client's Identifying Information</h5>
+                                </div>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" name="client_last_name" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" name="client_first_name" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Middle Name</label>
+                                        <input type="text" class="form-control" name="client_middle_name">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="form-label">Ext.</label>
+                                        <input type="text" class="form-control" name="client_extension">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Sex *</label>
+                                        <select class="form-select" name="client_sex" required>
+                                            <option value="">Choose...</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Date of Birth *</label>
+                                        <input type="date" class="form-control" name="client_dob" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Place of Birth *</label>
+                                        <input type="text" class="form-control" name="client_place_of_birth" required>
+                                    </div>
+                                </div>
+
+<div class="row g-3 mt-2">
+  <div class="col-12">
+    <label class="form-label">Present Address *</label>
+    
+    <select 
+      id="client_address" 
+      name="client_address" 
+      class="form-select" 
+      required
+    >
+      <option value="" disabled selected>Select barangay...</option>
+      <option value="Poblacion 1, City of Sto. Tomas, Batangas">Poblacion 1, City of Sto. Tomas, Batangas</option>
+      <option value="Poblacion 2, City of Sto. Tomas, Batangas">Poblacion 2, City of Sto. Tomas, Batangas</option>
+      <option value="Poblacion 3, City of Sto. Tomas, Batangas">Poblacion 3, City of Sto. Tomas, Batangas</option>
+      <option value="Poblacion 4, City of Sto. Tomas, Batangas">Poblacion 4, City of Sto. Tomas, Batangas</option>
+      <option value="San Agustin, City of Sto. Tomas, Batangas">San Agustin, City of Sto. Tomas, Batangas</option>
+      <option value="San Antonio, City of Sto. Tomas, Batangas">San Antonio, City of Sto. Tomas, Batangas</option>
+      <option value="San Bartolome, City of Sto. Tomas, Batangas">San Bartolome, City of Sto. Tomas, Batangas</option>
+      <option value="San Felix, City of Sto. Tomas, Batangas">San Felix, City of Sto. Tomas, Batangas</option>
+      <option value="San Fernando, City of Sto. Tomas, Batangas">San Fernando, City of Sto. Tomas, Batangas</option>
+      <option value="San Francisco, City of Sto. Tomas, Batangas">San Francisco, City of Sto. Tomas, Batangas</option>
+      <option value="San Isidro Norte, City of Sto. Tomas, Batangas">San Isidro Norte, City of Sto. Tomas, Batangas</option>
+      <option value="San Isidro Sur, City of Sto. Tomas, Batangas">San Isidro Sur, City of Sto. Tomas, Batangas</option>
+      <option value="San Joaquin, City of Sto. Tomas, Batangas">San Joaquin, City of Sto. Tomas, Batangas</option>
+      <option value="San Jose, City of Sto. Tomas, Batangas">San Jose, City of Sto. Tomas, Batangas</option>
+      <option value="San Juan, City of Sto. Tomas, Batangas">San Juan, City of Sto. Tomas, Batangas</option>
+      <option value="San Luis, City of Sto. Tomas, Batangas">San Luis, City of Sto. Tomas, Batangas</option>
+      <option value="San Miguel, City of Sto. Tomas, Batangas">San Miguel, City of Sto. Tomas, Batangas</option>
+      <option value="San Pablo, City of Sto. Tomas, Batangas">San Pablo, City of Sto. Tomas, Batangas</option>
+      <option value="San Pedro, City of Sto. Tomas, Batangas">San Pedro, City of Sto. Tomas, Batangas</option>
+      <option value="San Rafael, City of Sto. Tomas, Batangas">San Rafael, City of Sto. Tomas, Batangas</option>
+      <option value="San Roque, City of Sto. Tomas, Batangas">San Roque, City of Sto. Tomas, Batangas</option>
+      <option value="San Vicente, City of Sto. Tomas, Batangas">San Vicente, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Ana, City of Sto. Tomas, Batangas">Sta. Ana, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Anastacia, City of Sto. Tomas, Batangas">Sta. Anastacia, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Clara, City of Sto. Tomas, Batangas">Sta. Clara, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Cruz, City of Sto. Tomas, Batangas">Sta. Cruz, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Elena, City of Sto. Tomas, Batangas">Sta. Elena, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Maria, City of Sto. Tomas, Batangas">Sta. Maria, City of Sto. Tomas, Batangas</option>
+      <option value="Santiago, City of Sto. Tomas, Batangas">Santiago, City of Sto. Tomas, Batangas</option>
+      <option value="Sta. Teresita, City of Sto. Tomas, Batangas">Sta. Teresita, City of Sto. Tomas, Batangas</option>
+    </select>
+  </div>
+</div>
+
+                                <div class="row g-3 mt-2">
+                                  <!-- Relationship to Beneficiary -->
+                                  <div class="col-md-4 position-relative">
+                                    <label class="form-label">Relationship to Beneficiary *</label>
+                                    <div style="position: relative;">
+                                      <!-- ghost suggestion (below) -->
+                                      <input 
+                                        type="text" 
+                                        id="ghost_relationship" 
+                                        class="form-control" 
+                                        style="
+                                          position: absolute; 
+                                          top: 0; 
+                                          left: 0; 
+                                          z-index: 1; 
+                                          color: #d0d0d0; 
+                                          pointer-events: none;
+                                          background-color: #fff; 
+                                          border-color: #ced4da;
+                                        " 
+                                        disabled
+                                      >
+                                      <!-- main input (above) -->
+                                      <input 
+                                        type="text" 
+                                        id="relationship_to_beneficiary" 
+                                        name="relationship_to_beneficiary" 
+                                        class="form-control" 
+                                         
+                                        autocomplete="off" 
+                                        required
+                                        style="
+                                          position: relative; 
+                                          z-index: 2; 
+                                          background-color: transparent; 
+                                          color: #000;
+                                          border-color: #ced4da;
+                                        "
+                                      >
+                                    </div>
+                                  </div>
+                                
+                                  <!-- Civil Status -->
+<div class="col-md-4">
+  <label class="form-label">Civil Status *</label>
+  <select 
+    id="civil_status" 
+    name="civil_status" 
+    class="form-select" 
+    required
+  >
+    <option value="" disabled selected>Select civil status...</option>
+    <option value="Single">Single</option>
+    <option value="Married">Married</option>
+    <option value="Widowed">Widowed</option>
+    <option value="Separated">Separated</option>
+    <option value="Divorced">Divorced</option>
+  </select>
+</div>
+
+<!-- Religion -->
+<div class="col-md-4">
+  <label class="form-label">Religion</label>
+  <select 
+    id="religion" 
+    name="religion" 
+    class="form-select"
+  >
+    <option value="" disabled selected>Select religion...</option>
+    <option value="Roman Catholic">Roman Catholic</option>
+    <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+    <option value="Born Again Christian">Born Again Christian</option>
+    <option value="Baptist">Baptist</option>
+    <option value="Seventh-day Adventist">Seventh-day Adventist</option>
+    <option value="Islam">Islam</option>
+    <option value="Evangelical">Evangelical</option>
+    <option value="Methodist">Methodist</option>
+    <option value="Jehovah's Witness">Jehovah's Witness</option>
+    <option value="Protestant">Protestant</option>
+    <option value="Other">Other</option>
+    <option value="Prefer not to say">Prefer not to say</option>
+  </select>
+</div>
+                                </div>
+                                
+                                <script>
+                                // 🧩 Relationship to Beneficiary
+                                const relInput = document.getElementById("relationship_to_beneficiary");
+                                const relGhost = document.getElementById("ghost_relationship");
+                                const relSuggestions = [
+                                  "Mother", "Father", "Son", "Daughter", "Brother", "Sister",
+                                  "Grandmother", "Grandfather", "Uncle", "Aunt",
+                                  "Cousin", "Spouse", "Partner", "Guardian"
+                                ];
+                                
+                                // 🧩 Civil Status
+                                
+                                // 🔄 Function to handle all fields consistently
+                                function setupGhostField(input, ghost, suggestions) {
+                                  input.addEventListener("input", () => {
+                                    const value = input.value.toLowerCase().trim();
+                                    const match = suggestions.find(opt => opt.toLowerCase().startsWith(value));
+                                    ghost.value = match && value ? match : "";
+                                  });
+                                
+                                  input.addEventListener("keydown", e => {
+                                    if ((e.key === "Enter" || e.key === "Tab") && ghost.value) {
+                                      e.preventDefault();
+                                      input.value = ghost.value;
+                                      ghost.value = "";
+                                    }
+                                  });
+                                
+                                  input.addEventListener("blur", () => {
+                                    if (ghost.value) {
+                                      input.value = ghost.value;
+                                      ghost.value = "";
+                                    }
+                                  });
+                                }
+                                
+                                // ✅ Initialize all
+                                setupGhostField(relInput, relGhost, relSuggestions);
+                                </script>
+
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Nationality</label>
+                                        <input type="text" class="form-control" name="nationality" value="Filipino">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Highest Educational Attainment</label>
+                                        <input type="text" class="form-control" name="education">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Skills/Occupation</label>
+                                        <input type="text" class="form-control" name="occupation">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Estimated Monthly Income (₱)</label>
+                                        <input type="number" class="form-control" name="monthly_income" step="0.01">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">PhilHealth No.</label>
+                                        <input type="text" class="form-control" name="philhealth_no"
+                                            oninput="this.value = this.value.replace(/[^0-9-]/g, '');">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Mode of Admission</label>
+                                        <select class="form-select" name="admission_mode">
+                                            <option value="Online">Online</option>
+                                            <option value="Referral">Referral</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Referring Party</label>
+                                        <input type="text" class="form-control" name="referring_party" placeholder="Name of referring person/organization">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Contact Number</label>
+                                        <input type="text" 
+                                            maxlength="11"
+                                            class="form-control" 
+                                            name="contact_number" 
+                                            placeholder="09XXXXXXXXX"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4">
+
+                                <!-- Beneficiary Information -->
+                                <div class="section-header mb-3">
+                                    <h5 class="text-success">II. Beneficiary Identifying Information</h5>
+                                </div>
+
+                                <!-- Category Checkboxes -->
+                                <div class="mb-3">
+                                    <label class="form-label">Category *</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="category" value="Informal Settler Family" id="category1">
+                                                <label class="form-check-label" for="category1">Informal Settler Family</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="category" value="Disadvantaged Individual" id="category2">
+                                                <label class="form-check-label" for="category2">Disadvantaged Individual</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="category" value="Indigenous People" id="category3">
+                                                <label class="form-check-label" for="category3">Indigenous People</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="category" value="Pantawid Beneficiary" id="category4">
+                                                <label class="form-check-label" for="category4">Pantawid Beneficiary</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2" id="pantawid-id" style="display: none;">
+                                        <input type="text" class="form-control" name="category_id_no" placeholder="Pantawid ID Number">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Beneficiary Last Name *</label>
+                                        <input type="text" class="form-control" name="beneficiary_last_name" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Beneficiary First Name *</label>
+                                        <input type="text" class="form-control" name="beneficiary_first_name" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Middle Name</label>
+                                        <input type="text" class="form-control" name="beneficiary_middle_name">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label class="form-label">Ext.</label>
+                                        <input type="text" class="form-control" name="beneficiary_extension">
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Sex *</label>
+                                        <select class="form-select" name="beneficiary_sex" required>
+                                            <option value="">Choose...</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Date of Birth *</label>
+                                        <input type="date" class="form-control" name="beneficiary_dob" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Place of Birth *</label>
+                                        <input type="text" class="form-control" name="beneficiary_place_of_birth" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Present Address *</label>
+                                        
+                                        <select 
+                                        id="beneficiary_address" 
+                                        name="beneficiary_address" 
+                                        class="form-select" 
+                                        required
+                                        >
+                                        <option value="" disabled selected>Select barangay...</option>
+                                        <option value="Poblacion 1, City of Sto. Tomas, Batangas">Poblacion 1, City of Sto. Tomas, Batangas</option>
+                                        <option value="Poblacion 2, City of Sto. Tomas, Batangas">Poblacion 2, City of Sto. Tomas, Batangas</option>
+                                        <option value="Poblacion 3, City of Sto. Tomas, Batangas">Poblacion 3, City of Sto. Tomas, Batangas</option>
+                                        <option value="Poblacion 4, City of Sto. Tomas, Batangas">Poblacion 4, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Agustin, City of Sto. Tomas, Batangas">San Agustin, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Antonio, City of Sto. Tomas, Batangas">San Antonio, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Bartolome, City of Sto. Tomas, Batangas">San Bartolome, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Felix, City of Sto. Tomas, Batangas">San Felix, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Fernando, City of Sto. Tomas, Batangas">San Fernando, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Francisco, City of Sto. Tomas, Batangas">San Francisco, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Isidro Norte, City of Sto. Tomas, Batangas">San Isidro Norte, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Isidro Sur, City of Sto. Tomas, Batangas">San Isidro Sur, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Joaquin, City of Sto. Tomas, Batangas">San Joaquin, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Jose, City of Sto. Tomas, Batangas">San Jose, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Juan, City of Sto. Tomas, Batangas">San Juan, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Luis, City of Sto. Tomas, Batangas">San Luis, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Miguel, City of Sto. Tomas, Batangas">San Miguel, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Pablo, City of Sto. Tomas, Batangas">San Pablo, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Pedro, City of Sto. Tomas, Batangas">San Pedro, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Rafael, City of Sto. Tomas, Batangas">San Rafael, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Roque, City of Sto. Tomas, Batangas">San Roque, City of Sto. Tomas, Batangas</option>
+                                        <option value="San Vicente, City of Sto. Tomas, Batangas">San Vicente, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Ana, City of Sto. Tomas, Batangas">Sta. Ana, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Anastacia, City of Sto. Tomas, Batangas">Sta. Anastacia, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Clara, City of Sto. Tomas, Batangas">Sta. Clara, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Cruz, City of Sto. Tomas, Batangas">Sta. Cruz, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Elena, City of Sto. Tomas, Batangas">Sta. Elena, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Maria, City of Sto. Tomas, Batangas">Sta. Maria, City of Sto. Tomas, Batangas</option>
+                                        <option value="Santiago, City of Sto. Tomas, Batangas">Santiago, City of Sto. Tomas, Batangas</option>
+                                        <option value="Sta. Teresita, City of Sto. Tomas, Batangas">Sta. Teresita, City of Sto. Tomas, Batangas</option>
+                                        </select>
+                                    </div>
+
+                                        <div class="col-md-6">
+                                        <label class="form-label">Civil Status *</label>
+                                        <select 
+                                            id="beneficiary_civil_status" 
+                                            name="beneficiary_civil_status" 
+                                            class="form-select" 
+                                            required
+                                        >
+                                            <option value="" disabled selected>Select civil status...</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Widowed">Widowed</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Divorced">Divorced</option>
+                                        </select>
+                                        </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <!-- Family Composition -->
+                                <div class="section-header mb-3">
+                                    <h5 class="text-success">III. Beneficiary's Family Composition</h5>
+                                </div>
+                                
+                                <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                                    <table class="table table-bordered" id="family-table">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Sex</th>
+                                                <th>Birthdate</th>
+                                                <th>Civil Status</th>
+                                                <th>Relationship</th>
+                                                <th>Education</th>
+                                                <th>Occupation</th>
+                                                <th>Monthly Income</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="family-tbody">
+                                            <!-- Family members will be added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <button type="button" class="btn btn-success mb-3" id="add-family-member">
+                                    <i class="bi bi-plus-circle me-2"></i>Add Family Member
+                                </button>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-secondary" id="prev-step-2">
+                                        <i class="bi bi-arrow-left me-1"></i>Previous
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="next-step-2">
+                                        Next <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Upload Requirements -->
+                    <div class="step-content" id="step-3">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="bi bi-cloud-upload me-2"></i>Step 3: Upload Requirements
+                                </h4>
+                                
+                                <div class="alert alert-info">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Please upload the following documents based on your selected service:
+                                </div>
+                                
+                                <div id="requirements-list" class="mb-4">
+                                    <!-- Requirements will be loaded based on selected service -->
+                                </div>
+
+                                <div class="upload-area border border-dashed border-primary rounded p-4 text-center mb-4">
+                                    <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                                    <h5>Drop files here or click to browse</h5>
+                                    <p class="text-muted">Supported formats: PDF, JPG, PNG (Max 10MB per file)</p>
+                                    <input type="file" id="file-upload" multiple accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <i class="bi bi-folder2-open me-2"></i>Browse Files
+                                    </button>
+                                </div>
+
+                                <div id="uploaded-files" class="row g-3">
+                                    <!-- Uploaded files will appear here -->
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-secondary" id="prev-step-3">
+                                        <i class="bi bi-arrow-left me-1"></i>Previous
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="next-step-3">
+                                        Next <i class="bi bi-arrow-right ms-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 4: Verification -->
+                    <div class="step-content" id="step-4">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary mb-4">
+                                    <i class="bi bi-check-circle me-2"></i>Step 4: Review & Submit
+                                </h4>
+
+                                <div id="review-content">
+                                    <!-- Review content will be populated dynamically -->
+                                </div>
+
+                                <!-- E-Signature Section -->
+                                <div class="mt-4 mb-4">
+                                    <h5 class="text-success">Applicant's E-Signature</h5>
+                                    <p class="text-muted mb-3">Please provide your signature before submitting your application.</p>
+
+                                    <!-- Signature Pad (Primary Method) -->
+                                    <div id="signature-pad-section">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title text-center mb-3"><i class="bi bi-pen me-2"></i>Draw Your Signature</h6>
+                                                <canvas id="signature-pad" class="border rounded w-100 mb-3" style="height:200px; cursor: crosshair; background: #fafafa;"></canvas>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary me-2" id="clear-signature">
+                                                        <i class="bi bi-arrow-clockwise me-1"></i>Clear
+                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" id="toggle-upload-signature">
+                                                        <i class="bi bi-upload me-1"></i>Upload Signature Instead
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Signature Upload (Secondary Method) -->
+                                    <div id="signature-upload-section" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h6 class="card-title text-center mb-3"><i class="bi bi-cloud-upload me-2"></i>Upload Signature Image</h6>
+                                                <div class="signature-upload-area border border-dashed rounded p-4 text-center mb-3" id="signature-upload-area" style="min-height: 150px; cursor: pointer;">
+                                                    <i class="bi bi-cloud-upload display-6 text-primary mb-2"></i>
+                                                    <p class="mb-1">Drop signature image here or click to browse</p>
+                                                    <small class="text-muted">PNG, JPG (Max 2MB)</small>
+                                                </div>
+                                                <input type="file" id="signature-file-input" accept=".png,.jpg,.jpeg" style="display: none;">
+                                                <div id="signature-preview" style="display: none;" class="text-center mb-3">
+                                                    <img id="signature-preview-img" class="img-fluid border rounded" style="max-height: 150px;" alt="Signature Preview">
+                                                    <div class="mt-2">
+                                                        <button type="button" class="btn btn-sm btn-outline-danger" id="remove-uploaded-signature">
+                                                            <i class="bi bi-x-circle me-1"></i>Remove
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" id="toggle-draw-signature">
+                                                        <i class="bi bi-pen me-1"></i>Draw Signature Instead
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt-3">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        <strong>Note:</strong> Your signature is required to submit the application. Choose your preferred method above.
+                                    </div>
+                                    
+                                    <div class="mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="signature-confirmation" required>
+                                            <label class="form-check-label" for="signature-confirmation">
+                                                I confirm that the signature provided above is my own and I authorize its use for this application.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="signature_data" id="signature-data">
+                                </div>
+
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="checkbox" id="terms-agreement" required>
+                                    <label class="form-check-label" for="terms-agreement">
+                                    I certify that all information provided is true and correct. I understand that providing false information may result in the denial of assistance.
+                                    </label>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-secondary" id="prev-step-4">
+                                    <i class="bi bi-arrow-left me-1"></i>Previous
+                                    </button>
+                                    <button type="submit" class="btn btn-success btn-lg" id="submit-application">
+                                    <i class="bi bi-send me-2"></i>Submit Application
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Data Privacy Modal -->
+    <div class="modal fade" id="dataPrivacyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-shield-lock me-2"></i>Data Privacy Notice</h5>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    In compliance with the <strong>Data Privacy Act of 2012 (RA 10173)</strong>, the City of Sto. Tomas ensures
+                    that all personal information collected in this form will be used solely for legitimate AICS program
+                    purposes. Your data will be processed and stored securely and will not be shared with unauthorized
+                    individuals or entities.
+                    </p>
+                    <p>
+                    By proceeding, you confirm that you have read and understood this notice, and you voluntarily consent to the
+                    collection and processing of your personal information for the purpose of availing assistance.
+                    </p>
+                    <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="privacy-consent">
+                    <label class="form-check-label" for="privacy-consent">
+                        I have read and agree to the Data Privacy Policy.
+                    </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="agreePrivacyBtn" disabled>Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle me-2"></i>Application Submitted Successfully
+                    </h5>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5>Your application has been submitted!</h5>
+                    <p>Your reference number is:</p>
+                    <div class="alert alert-info">
+                        <h4 class="mb-0" id="reference-number"></h4>
+                    </div>
+                    <p class="text-muted">Please save this reference number for tracking your application.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="track.html" class="btn btn-primary">Track Application</a>
+                    <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div class="modal fade" id="otpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-shield-lock me-2"></i>Email Verification</h5>
+                </div>
+                <div class="modal-body text-center">
+                    <p>We’ve sent a 6-digit OTP to your email. Please enter it below to verify your identity.</p>
+                    <input type="text" id="otp-input" class="form-control text-center mb-3" maxlength="6" placeholder="Enter OTP">
+                    <div id="otp-error" class="text-danger small"></div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="verify-otp-btn">Verify OTP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold text-uppercase mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="programs.html" class="text-light text-decoration-none">Programs</a></li>
+                        <li><a href="apply.html" class="text-light text-decoration-none">Apply Now</a></li>
+                        <li><a href="track.html" class="text-light text-decoration-none">Track Application</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-md-5 mb-4">
+                    <h5 class="fw-bold text-uppercase mb-3">Contact Information</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="bi bi-telephone-fill me-2"></i><strong>Hotline:</strong> (043) 784 8022</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> cio@cityofstotomas.gov.ph</li>
+                        <li><i class="bi bi-geo-alt-fill me-2"></i><strong>Address:</strong><br>
+                            CSWDO Building, Poblacion 1, City of Sto. Tomas<br>
+                            Aksyon Bilis Building, Poblacion 1, City of Sto. Tomas
+                        </li>
+                        <li><i class="bi bi-clock-fill me-2"></i><strong>Office Hours:</strong> Mon–Fri, 8:00 AM – 5:00 PM</li>
+                    </ul>
+                </div>
+
+                <!-- Logo / About / Social Links -->
+                <div class="col-md-3 text-center mb-4">
+                    <img src="uploads/logo.png" alt="AICS Logo" class="img-fluid mb-3" style="height: 60px;">
+                    <p class="small text-light mb-3" style="opacity: 0.9;">
+                        Providing timely assistance to individuals and families in crisis within the City of Sto. Tomas.
+                    </p>
+
+                    <!-- Social Media Icons -->
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://www.facebook.com/STOTOMASLGU" target="_blank" class="text-light fs-5" title="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/cityofstotomastourism?igsh=dmY0Z29wdzZ3d2cx&fbclid=IwY2xjawNlaf5leHRuA2FlbQIxMABicmlkETFQTXFJT1o4WHpubmhPaWQ5AR7Q2xQD5tZNoCKslwpuxQMUq5TCTIJaxFP1fqMCAxiGDl2SN6b3U0L03nfTkw_aem_uKOei3moZUvuMQR2yWC4nQ" target="_blank" class="text-light fs-5" title="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://cityofstotomas.gov.ph/?fbclid=IwY2xjawNlai5leHRuA2FlbQIxMABicmlkETFQTXFJT1o4WHpubmhPaWQ5AR7Q2xQD5tZNoCKslwpuxQMUq5TCTIJaxFP1fqMCAxiGDl2SN6b3U0L03nfTkw_aem_uKOei3moZUvuMQR2yWC4nQ" target="_blank" class="text-light fs-5" title="Official Website">
+                            <i class="bi bi-globe"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@CityofStoTomasBatangas" target="_blank" class="text-light fs-5" title="YouTube">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                        <a href="#" class="text-light fs-5" title="Get Directions" data-bs-toggle="modal" data-bs-target="#mapModal">
+                            <i class="bi bi-map"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mapModalLabel">Get Directions</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-0">
+                            <iframe 
+                                src="https://www.google.com/maps?q=14.110507360158971,121.14214315933367&output=embed" 
+                                width="100%" 
+                                height="450" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="https://www.google.com/maps/dir/?api=1&destination=14.110507360158971,121.14214315933367" 
+                            target="_blank" 
+                            class="btn btn-primary">
+                                Open in Google Maps
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="text-center small">
+                <p class="mb-0">&copy; 2025 Centralized AICS Support. All rights reserved. | Empowering communities through social support.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/application.js"></script>
+</body>
+</html>

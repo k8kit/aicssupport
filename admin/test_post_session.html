@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test POST Session</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">POST Session Test</h4>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-primary mb-3" id="testGetBtn">Test GET Request</button>
+                <button class="btn btn-success mb-3" id="testPostBtn">Test POST Request</button>
+                <button class="btn btn-info mb-3" id="testDebugBtn">Test Debug Endpoint</button>
+                
+                <div id="results"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test GET request
+        document.getElementById('testGetBtn').addEventListener('click', async () => {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="spinner-border"></div> Testing GET...';
+            
+            try {
+                const response = await fetch('../api/content_updates.php');
+                const text = await response.text();
+                let result;
+                
+                try {
+                    result = JSON.parse(text);
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-${result.success ? 'success' : 'danger'}">
+                            <h5>GET Request Result:</h5>
+                            <p><strong>Success:</strong> ${result.success}</p>
+                            <p><strong>Message:</strong> ${result.message || 'N/A'}</p>
+                            <p><strong>Data Count:</strong> ${result.data ? result.data.length : 0}</p>
+                            <details>
+                                <summary>View Full Response</summary>
+                                <pre>${JSON.stringify(result, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } catch (e) {
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h5>GET Request Failed (Invalid JSON):</h5>
+                            <pre>${text.substring(0, 500)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            }
+        });
+
+        // Test POST request
+        document.getElementById('testPostBtn').addEventListener('click', async () => {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="spinner-border"></div> Testing POST...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('title', 'Test Content');
+                formData.append('description', 'This is a test description');
+                formData.append('display_order', '0');
+                formData.append('is_active', '1');
+                
+                const response = await fetch('../api/content_updates.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const text = await response.text();
+                let result;
+                
+                try {
+                    result = JSON.parse(text);
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-${result.success ? 'success' : 'danger'}">
+                            <h5>POST Request Result:</h5>
+                            <p><strong>Success:</strong> ${result.success}</p>
+                            <p><strong>Message:</strong> ${result.message || 'N/A'}</p>
+                            ${result.success ? '<p class="text-success">✅ POST request worked! The session is fine.</p>' : '<p class="text-danger">❌ POST failed. Check the error message above.</p>'}
+                            <details>
+                                <summary>View Full Response</summary>
+                                <pre>${JSON.stringify(result, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } catch (e) {
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h5>POST Request Failed (Invalid JSON):</h5>
+                            <pre>${text.substring(0, 500)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            }
+        });
+
+        // Test debug endpoint
+        document.getElementById('testDebugBtn').addEventListener('click', async () => {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="spinner-border"></div> Testing Debug...';
+            
+            try {
+                const response = await fetch('../api/debug_post_session.php');
+                const text = await response.text();
+                let result;
+                
+                try {
+                    result = JSON.parse(text);
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-info">
+                            <h5>Debug Information:</h5>
+                            <p><strong>Success:</strong> ${result.success}</p>
+                            <p><strong>Has Admin ID:</strong> ${result.has_admin_id ? '✅ Yes' : '❌ No'}</p>
+                            <p><strong>Determined Admin ID:</strong> ${result.determined_admin_id || 'NULL'}</p>
+                            <hr>
+                            <h6>Session Keys Found:</h6>
+                            <ul>
+                                ${result.data.all_session_keys.map(key => `<li><code>${key}</code></li>`).join('')}
+                            </ul>
+                            <hr>
+                            <h6>ID Checks:</h6>
+                            <ul>
+                                <li><code>user_id</code>: ${result.data.user_id}</li>
+                                <li><code>admin_id</code>: ${result.data.admin_id}</li>
+                                <li><code>id</code>: ${result.data.id}</li>
+                            </ul>
+                            <details>
+                                <summary>View Full Session</summary>
+                                <pre>${JSON.stringify(result.data.full_session, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } catch (e) {
+                    resultsDiv.innerHTML = `
+                        <div class="alert alert-danger">
+                            <h5>Debug Failed (Invalid JSON):</h5>
+                            <pre>${text.substring(0, 500)}</pre>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

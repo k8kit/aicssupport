@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Mayor Dashboard - AICS Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/admin-styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="text-white fw-bold">
+                <i class="bi bi-award me-2"></i>Mayor Panel
+            </h4>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link active">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="applicants.html" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span>Final Approval</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="beneficiaries.html" class="nav-link">
+                    <i class="bi bi-heart"></i>
+                    <span>Approved Beneficiaries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="manage_account.html" class="nav-link">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Manage Your Account</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-link text-danger" id="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-3" id="sidebar-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="mb-0">City Mayor Dashboard</h5>
+                <div class="ms-auto">
+                    <span class="text-muted me-3">Welcome, <strong id="user-name">City Mayor</strong></span>
+                    <span class="badge bg-success" id="current-time"></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            <!-- Summary Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <div class="stats-card bg-warning">
+                        <div class="stats-icon">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="awaiting-approval">0</h3>
+                            <p>Awaiting My Approval</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card bg-success">
+                        <div class="stats-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="approved-by-mayor">0</h3>
+                            <p>Approved by Me</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card bg-info">
+                        <div class="stats-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3 id="approved-this-month">0</h3>
+                            <p>Approved This Month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-graph-up me-2"></i>Monthly Approval Trends
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="trendsChart" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-pie-chart me-2"></i>Program Distribution
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="programChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urgent Applications -->
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-exclamation-triangle me-2"></i>Applications Requiring Immediate Attention
+                            </h5>
+                            <span class="badge bg-warning" id="urgent-count">0</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Reference No.</th>
+                                            <th>Applicant</th>
+                                            <th>Service Type</th>
+                                            <th>Days Waiting</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="urgent-applications">
+                                        <!-- Data will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/citymayor-dashboard.js"></script>
+</body>
+</html>

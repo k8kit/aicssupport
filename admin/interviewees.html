@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interviewees - AICS Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/admin-styles.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h4 class="text-white fw-bold">
+                <i class="bi bi-shield-check me-2"></i>Aksyon Bilis Admin Panel
+            </h4>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="dashboard_aksyonbilis.html" class="nav-link">
+                    <i class="bi bi-house-door"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="applicants.html" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span>Applicants</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="interviewees.html" class="nav-link active">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Interviewees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="beneficiaries.html" class="nav-link">
+                    <i class="bi bi-heart"></i>
+                    <span>Beneficiaries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="analytics.html" class="nav-link">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item"><a href="manage_content.html" class="nav-link"><i class="bi bi-megaphone"></i><span>Content Updates</span></a></li>
+            <li class="nav-item">
+                <a href="manage_account.html" class="nav-link">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Manage Your Account</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-link text-danger" id="logout-btn">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-outline-secondary me-3" id="sidebar-toggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <h5 class="mb-0">List of Interviewees</h5>
+                <div class="ms-auto">
+                    <span class="text-muted me-3">Welcome, <strong id="user-name">Admin</strong></span>
+                    <span class="badge bg-success" id="current-time"></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="container-fluid p-4">
+            <!-- Filters -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Filter by Program</label>
+                            <select class="form-select" id="program-filter">
+                                <option value="">All Programs</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Date Range</label>
+                            <input type="date" class="form-control" id="date-filter">
+                        </div>
+                                                <div class="col-md-4">
+                            <label class="form-label">Search Applicant</label>
+                            <div class="input-group">
+                                <input 
+                                    type="text" 
+                                    id="search-input" 
+                                    class="form-control" 
+                                    placeholder="Search Reference No. or Name">
+                                <button class="btn btn-outline-primary" id="search-btn">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interviewees Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-chat-dots me-2"></i>Applications for Interview
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover text-center" id="interviewees-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Reference Number</th>
+                                    <th>Applicant Name</th>
+                                    <th>Type of Assistance</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="interviewees-tbody">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="pagination-controls" class="d-flex justify-content-between align-items-center mt-3 px-2">
+                        <button id="prev-page" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Previous
+                        </button>
+
+                        <div id="page-numbers" class="fw-bold text-center flex-grow-1"></div>
+
+                        <button id="next-page" class="btn btn-sm btn-outline-secondary">
+                            Next <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Details Modal -->
+    <div class="modal fade" id="applicationModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-file-earmark-text me-2"></i>Application Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="application-details">
+                    <!-- Application details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="statusConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-question-circle me-2"></i>Confirm Action</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="status-confirm-message">
+                    <!-- Message will be injected -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirm-status-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- E-Signature Modal -->
+    <div class="modal fade" id="signatureModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pen me-2"></i>Add Digital Signature
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Upload Signature Image</label>
+                        <div class="signature-upload-area" id="signature-upload-area">
+                            <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                            <h6>Drop signature image here or click to browse</h6>
+                            <p class="text-muted">Supported formats: PNG, JPG (Max 2MB)</p>
+                            <input type="file" id="signature-file-input" accept=".png,.jpg,.jpeg" style="display: none;">
+                        </div>
+                        <div id="signature-preview" class="text-center mt-3" style="display: none;">
+                            <img id="signature-preview-img" class="signature-preview" alt="Signature Preview">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-3">
+                        <p><strong>OR</strong></p>
+                        <p>Draw your signature below:</p>
+                    </div>
+                    <div class="signature-pad-container text-center">
+                        <canvas id="signature-pad" width="400" height="200" style="border: 2px solid #dee2e6; border-radius: 8px;"></canvas>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-outline-secondary" id="clear-signature">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-signature">
+                        <i class="bi bi-save me-2"></i>Save Signature
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- View Saved E-Signature Modal -->
+    <div class="modal fade" id="viewSavedSignatureModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-person-bounding-box me-2"></i>Your Saved E-Signature</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="saved-signature-content">
+                    <div class="text-muted">Loading signature...</div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div>
+                    <button type="button" class="btn btn-primary me-2" id="apply-saved-signature">
+                        <i class="bi bi-check-circle me-1"></i>Apply
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="rejectionReasonModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejection Reason</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="rejection-reason" class="form-control" rows="4" placeholder="Enter reason for rejection"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="confirm-reject-btn" class="btn btn-danger">Confirm Rejection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Preview Modal -->
+    <div class="modal fade" id="documentPreviewModal" tabindex="-1" aria-labelledby="documentPreviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="documentPreviewLabel">Document Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center" id="document-preview-content">
+                    <p class="text-muted">Loading document...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/admin-interviewees.js"></script>
+</body>
+</html>
