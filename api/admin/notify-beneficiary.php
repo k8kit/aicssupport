@@ -63,7 +63,7 @@ function sendBeneficiaryNotification($email, $application) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'keithdaniellereyes@gmail.com';
+        $mail->Username   = ' ';
         $mail->Password   = 'byqp mxoc qcwz ekua';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
