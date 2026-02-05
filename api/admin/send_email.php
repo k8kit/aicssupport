@@ -69,7 +69,7 @@ function sendRejectionEmail($to, $name, $reason) {
         $mail->Port = 587;
 
         // From/To
-        $mail->setFrom('keithdaniellereyes@gmail.com', 'City of Sto. Tomas AICS Support');
+        $mail->setFrom('', 'City of Sto. Tomas AICS Support');
         $mail->addAddress($to, $name);
 
         // Email Content
