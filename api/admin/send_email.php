@@ -15,7 +15,7 @@ function sendInterviewEmail($to, $name, $schedule_date, $schedule_time, $departm
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'keithdaniellereyes@gmail.com'; // TODO: replace with your email
+        $mail->Username = ''; // TODO: replace with your email
         $mail->Password = 'byqp mxoc qcwz ekua';   // TODO: use Gmail app password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
