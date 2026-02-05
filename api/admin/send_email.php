@@ -63,7 +63,7 @@ function sendRejectionEmail($to, $name, $reason) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'keithdaniellereyes@gmail.com'; // same as your interview sender
+        $mail->Username = ''; // same as your interview sender
         $mail->Password = 'byqp mxoc qcwz ekua';          // your Gmail app password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
