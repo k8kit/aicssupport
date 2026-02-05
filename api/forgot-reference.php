@@ -62,8 +62,8 @@ function sendReferenceEmail($email, $applications) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'keithdaniellereyes@gmail.com';
-        $mail->Password   = 'byqp mxoc qcwz ekua';
+        $mail->Username   = '';
+        $mail->Password   = '';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
