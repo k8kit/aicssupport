@@ -32,13 +32,13 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com'; // Change if using another mail provider
     $mail->SMTPAuth = true;
-    $mail->Username = 'keithdaniellereyes@gmail.com'; // your sender email
+    $mail->Username = ' '; // your sender email
     $mail->Password = 'byqp mxoc qcwz ekua';   // your app password (not Gmail login)
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
     // Recipients
-    $mail->setFrom('keithdaniellereyes@gmail.com', 'AICS Support');
+    $mail->setFrom(' ', 'AICS Support');
     $mail->addAddress($email);
 
     // Content
